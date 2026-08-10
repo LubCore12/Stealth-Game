@@ -13,6 +13,7 @@ jump_strength = 200.0
 stamina = 100.0
 stamina_speed = 200.0
 stamina_usage = 70.0
+jump_stamina_usage = 20.0
 stamina_recovery_speed = 40.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=149386670]

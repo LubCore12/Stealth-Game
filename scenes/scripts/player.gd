@@ -11,6 +11,7 @@ var stamina_recovery := false
 @export var stamina: float
 @export var stamina_speed: float
 @export var stamina_usage: float
+@export var jump_stamina_usage: float
 @export var stamina_recovery_speed: float
 
 @export_group("Player stats")
@@ -31,6 +32,7 @@ func move() -> void:
 	
 func jump() -> void:
 	velocity.y = -jump_strength
+	stamina_use.emit(jump_stamina_usage)
 	
 func run(delta) -> void:
 	current_speed = stamina_speed
@@ -51,7 +53,7 @@ func get_input(delta) -> void:
 		stamina += stamina_recovery_speed * delta
 		stamina_use.emit(-stamina_recovery_speed * delta)
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and stamina >= jump_stamina_usage:
 		jump()
 		
 	if Input.is_action_pressed("run") and stamina > 0 and direction_x:
