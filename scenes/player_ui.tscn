@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b7bm0jkth1ss3"]
+
+[ext_resource type="Script" uid="uid://bhib5xfaq5c5e" path="res://scenes/scripts/player_ui.gd" id="1_jkj6h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37okk"]
+bg_color = Color(0.24164543, 0.24164551, 0.24164534, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo3dt"]
+bg_color = Color(1, 0.6431373, 0, 1)
+
+[sub_resource type="Theme" id="Theme_37okk"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_37okk")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_fo3dt")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sk4pr"]
+bg_color = Color(0.24313726, 0.24313726, 0.24313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48xfa"]
+bg_color = Color(0.1864157, 0.26521918, 1, 1)
+
+[sub_resource type="Theme" id="Theme_jkj6h"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_sk4pr")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_48xfa")
+
+[node name="PlayerUI" type="Control" unique_id=984128133]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jkj6h")
+
+[node name="TopLeftBox" type="VBoxContainer" parent="." unique_id=1966474580]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.03
+anchor_right = 0.02
+anchor_bottom = 0.03
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBar" type="ProgressBar" parent="TopLeftBox" unique_id=2010847233]
+custom_minimum_size = Vector2(350, 40)
+layout_mode = 2
+size_flags_vertical = 2
+theme = SubResource("Theme_37okk")
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)
+
+[node name="StaminaBar" type="ProgressBar" parent="TopLeftBox" unique_id=5405069]
+custom_minimum_size = Vector2(350, 40)
+layout_mode = 2
+size_flags_vertical = 2
+theme = SubResource("Theme_jkj6h")
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)

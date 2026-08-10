@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cufci385o641h"]
+
+[ext_resource type="Script" uid="uid://drh0e1bjo6dfq" path="res://scenes/scripts/game.gd" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://biy7st87oubxk" path="res://scenes/camera.tscn" id="2_iywne"]
+[ext_resource type="PackedScene" uid="uid://dftrpkfy22rxb" path="res://scenes/player.tscn" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://b7bm0jkth1ss3" path="res://scenes/player_ui.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://x6rgvi61u2g1" path="res://scenes/guardian.tscn" id="5_p57ef"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
+size = Vector2(793, 261)
+
+[node name="Game" type="Node2D" unique_id=262754011]
+script = ExtResource("1_lbhrr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1945548739]
+
+[node name="PlayerUI" parent="CanvasLayer" unique_id=984128133 instance=ExtResource("5_iywne")]
+
+[node name="Entities" type="Node2D" parent="." unique_id=2076095853]
+
+[node name="Player" parent="Entities" unique_id=721760072 instance=ExtResource("3_lbhrr")]
+
+[node name="Cameras" type="Node2D" parent="Entities" unique_id=359744557]
+
+[node name="Camera" parent="Entities/Cameras" unique_id=541546630 instance=ExtResource("2_iywne")]
+position = Vector2(262, -31)
+
+[node name="Guardians" type="Node2D" parent="Entities" unique_id=1719184381]
+
+[node name="Guardian" parent="Entities/Guardians" unique_id=1266923847 instance=ExtResource("5_p57ef")]
+position = Vector2(-260, 0)
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=444745366]
+
+[node name="Shape" type="CollisionShape2D" parent="Floor" unique_id=668666329]
+position = Vector2(4, 204)
+shape = SubResource("RectangleShape2D_37okk")
+
+[connection signal="get_damage" from="Entities/Player" to="." method="_on_player_get_damage"]
+[connection signal="stamina_use" from="Entities/Player" to="." method="_on_player_stamina_use"]

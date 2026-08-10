@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://biy7st87oubxk"]
+
+[ext_resource type="Script" uid="uid://b0mm6jlkmig46" path="res://scenes/scripts/camera.gd" id="1_cvpoc"]
+
+[node name="Camera" type="Area2D" unique_id=541546630]
+script = ExtResource("1_cvpoc")
+camera_damage = 1.0
+
+[node name="Shape" type="CollisionPolygon2D" parent="." unique_id=55811153]
+polygon = PackedVector2Array(0, 0, -89, 105, 87, 105)
+
+[node name="Timers" type="Node" parent="." unique_id=1700769080]
+
+[node name="AttackTimer" type="Timer" parent="Timers" unique_id=2088746280]
+wait_time = 0.1
+
+[node name="RotateTimer" type="Timer" parent="Timers" unique_id=1351919071]
+wait_time = 7.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timers/AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Timers/RotateTimer" to="." method="_on_rotate_timer_timeout"]

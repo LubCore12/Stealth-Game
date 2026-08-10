@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dftrpkfy22rxb"]
+
+[ext_resource type="Script" uid="uid://4hrmbli6063p" path="res://scenes/scripts/player.gd" id="1_3vyb7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
+
+[node name="Player" type="CharacterBody2D" unique_id=721760072]
+script = ExtResource("1_3vyb7")
+speed = 80.0
+jump_strength = 200.0
+stamina = 100.0
+stamina_speed = 200.0
+stamina_usage = 70.0
+stamina_recovery_speed = 40.0
+health = 100.0
+
+[node name="Shape" type="CollisionShape2D" parent="." unique_id=1977938221]
+shape = SubResource("RectangleShape2D_37okk")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1447621344]
+zoom = Vector2(3, 3)
+
+[node name="Timers" type="Node" parent="." unique_id=447946298]
+
+[node name="StaminaTimer" type="Timer" parent="Timers" unique_id=19177812]
+one_shot = true
+
+[connection signal="timeout" from="Timers/StaminaTimer" to="." method="_on_stamina_timer_timeout"]

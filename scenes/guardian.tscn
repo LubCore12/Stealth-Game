@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://x6rgvi61u2g1"]
+
+[ext_resource type="Script" uid="uid://dh8hxyph2dluh" path="res://scenes/scripts/guardian.gd" id="1_f7ra8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37okk"]
+radius = 110.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7ra8"]
+radius = 30.413813
+
+[node name="Guardian" type="CharacterBody2D" unique_id=1266923847]
+script = ExtResource("1_f7ra8")
+speed = 70.0
+
+[node name="Shape" type="CollisionShape2D" parent="." unique_id=675895807]
+shape = SubResource("RectangleShape2D_37okk")
+
+[node name="VisionArea" type="Area2D" parent="." unique_id=1003115298]
+
+[node name="Shape" type="CollisionShape2D" parent="VisionArea" unique_id=729915706]
+shape = SubResource("CircleShape2D_37okk")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=635631469]
+
+[node name="Shape" type="CollisionShape2D" parent="AttackArea" unique_id=1641039506]
+shape = SubResource("CircleShape2D_f7ra8")
+
+[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
