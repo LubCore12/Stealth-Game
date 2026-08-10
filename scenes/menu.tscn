@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://jhyuywgfd0sf"]
 
 [ext_resource type="Script" uid="uid://5y3y3oolkvxu" path="res://scenes/scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="Texture2D" uid="uid://cdw1tijigmwj8" path="res://assets/background.png" id="2_vjb58"]
+[ext_resource type="FontFile" uid="uid://dk4f6x88oq1wf" path="res://fonts/type me! fonts - Cera Stencil PRO Trial Light.otf" id="3_con2f"]
+
+[sub_resource type="Theme" id="Theme_6v87y"]
+default_font = ExtResource("3_con2f")
+Button/font_sizes/font_size = 34
+Button/fonts/font = ExtResource("3_con2f")
 
 [node name="Menu" type="Control" unique_id=1080315246]
 layout_mode = 3
@@ -10,3 +17,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqeox")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1146311688]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vjb58")
+
+[node name="PlayButton" type="Button" parent="." unique_id=1533190506]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13
+anchor_top = 0.55
+anchor_right = 0.13
+anchor_bottom = 0.55
+offset_right = 300.0
+offset_bottom = 80.0
+theme = SubResource("Theme_6v87y")
+text = "PLAY"
+autowrap_trim_flags = 0

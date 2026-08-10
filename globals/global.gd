@@ -1,3 +1,3 @@
 extends Node
 
-const GRAVITY_STRENGTH := 12
+const GRAVITY_STRENGTH = 12

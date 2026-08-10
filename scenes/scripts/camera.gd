@@ -2,6 +2,8 @@ extends Area2D
 
 var player: CharacterBody2D
 
+@onready var attack_timer = $Timers/AttackTimer
+
 @export_group("Camera stats")
 @export var camera_damage: float
 
@@ -10,14 +12,14 @@ func setup(body: CharacterBody2D) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if player and player == body:
-		$Timers/AttackTimer.start()
+		attack_timer.start()
 		
 func _on_body_exited(body: Node2D) -> void:
 	if player and player == body:
-		$Timers/AttackTimer.stop()
+		attack_timer.stop()
 
 func _on_attack_timer_timeout() -> void:
-	player.discard_health(camera_damage)
+	player.add_awareness(camera_damage)
 
 func _on_rotate_timer_timeout() -> void:
 	var tween = create_tween()

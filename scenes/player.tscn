@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://dftrpkfy22rxb"]
 
 [ext_resource type="Script" uid="uid://4hrmbli6063p" path="res://scenes/scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://d38qhfhsfb383" path="res://assets/player.png" id="2_g2els"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
+size = Vector2(24, 24)
 
 [node name="Player" type="CharacterBody2D" unique_id=721760072]
 script = ExtResource("1_3vyb7")
@@ -12,7 +14,11 @@ stamina = 100.0
 stamina_speed = 200.0
 stamina_usage = 70.0
 stamina_recovery_speed = 40.0
-health = 100.0
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=149386670]
+position = Vector2(1.9073486e-06, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_g2els")
 
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=1977938221]
 shape = SubResource("RectangleShape2D_37okk")

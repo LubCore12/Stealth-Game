@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://x6rgvi61u2g1"]
 
 [ext_resource type="Script" uid="uid://dh8hxyph2dluh" path="res://scenes/scripts/guardian.gd" id="1_f7ra8"]
+[ext_resource type="Texture2D" uid="uid://d1xm4nwei53ro" path="res://assets/guardian.png" id="2_0b4ss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_37okk"]
-radius = 110.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7ra8"]
 radius = 30.413813
@@ -14,13 +12,19 @@ radius = 30.413813
 script = ExtResource("1_f7ra8")
 speed = 70.0
 
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1649361944]
+position = Vector2(0, -2)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("2_0b4ss")
+
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=675895807]
 shape = SubResource("RectangleShape2D_37okk")
 
 [node name="VisionArea" type="Area2D" parent="." unique_id=1003115298]
+rotation = 3.1415927
 
-[node name="Shape" type="CollisionShape2D" parent="VisionArea" unique_id=729915706]
-shape = SubResource("CircleShape2D_37okk")
+[node name="Shape" type="CollisionPolygon2D" parent="VisionArea" unique_id=1708249908]
+polygon = PackedVector2Array(0, 0, 137, 81.999985, 169, -1.47744495e-05, 139, -84.000015)
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=635631469]
 

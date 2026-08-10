@@ -30,11 +30,14 @@ position = Vector2(262, -31)
 [node name="Guardian" parent="Entities/Guardians" unique_id=1266923847 instance=ExtResource("5_p57ef")]
 position = Vector2(-260, 0)
 
+[node name="Guardian2" parent="Entities/Guardians" unique_id=65013014 instance=ExtResource("5_p57ef")]
+position = Vector2(202, -26)
+
 [node name="Floor" type="StaticBody2D" parent="." unique_id=444745366]
 
 [node name="Shape" type="CollisionShape2D" parent="Floor" unique_id=668666329]
 position = Vector2(4, 204)
 shape = SubResource("RectangleShape2D_37okk")
 
-[connection signal="get_damage" from="Entities/Player" to="." method="_on_player_get_damage"]
+[connection signal="get_awareness" from="Entities/Player" to="." method="_on_player_get_awareness"]
 [connection signal="stamina_use" from="Entities/Player" to="." method="_on_player_stamina_use"]

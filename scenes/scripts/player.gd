@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var direction_x: float
+var current_awareness: float
 var current_speed: float
 var stamina_recovery := false
 
@@ -13,9 +14,10 @@ var stamina_recovery := false
 @export var stamina_recovery_speed: float
 
 @export_group("Player stats")
-@export var health: float
+@export var max_awareness: float
 
-signal get_damage(damage: float)
+signal get_awareness(damage: float)
+signal full_awareness
 signal stamina_use(amount: float)
 
 func _physics_process(delta: float) -> void:
@@ -54,16 +56,13 @@ func get_input(delta) -> void:
 		
 	if Input.is_action_pressed("run") and stamina > 0 and direction_x:
 		run(delta)
-	
-func death() -> void:
-	pass
 
-func discard_health(damage: float):
-	health -= damage
-	get_damage.emit(damage)
+func add_awareness(damage: float):
+	current_awareness += damage
+	get_awareness.emit(damage)
 	
-	if health <= 0:
-		death()
+	if current_awareness >= max_awareness:
+		full_awareness.emit()
 
 func _on_stamina_timer_timeout() -> void:
 	stamina_recovery = true
