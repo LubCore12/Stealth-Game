@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b3fhpndmt0ula" path="res://scenes/control_panel.tscn" id="6_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://dshsuah6pnv1h" path="res://scenes/vent_system.tscn" id="7_gee14"]
 [ext_resource type="PackedScene" uid="uid://f2ntqa64cybs" path="res://scenes/wardrobe.tscn" id="8_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://b7me6j6m6emu5" path="res://scenes/stretch.tscn" id="9_0tnpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
 size = Vector2(1112, 109)
@@ -15,7 +16,7 @@ size = Vector2(1112, 109)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fo3dt"]
 size = Vector2(74, 153)
 
-[node name="Game" type="Node2D" unique_id=262754011]
+[node name="Level" type="Node2D" unique_id=262754011]
 script = ExtResource("1_lbhrr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1945548739]
@@ -55,12 +56,20 @@ position = Vector2(-400, -63)
 [node name="Wardrobe" parent="Entities/Wardrobes" unique_id=1940177926 instance=ExtResource("8_0tnpc")]
 position = Vector2(-65, -29)
 
+[node name="Stretches" type="Node2D" parent="Entities" unique_id=163829972]
+
+[node name="Stretch" parent="Entities/Stretches" unique_id=1682551179 instance=ExtResource("9_0tnpc")]
+position = Vector2(41, 0)
+
+[node name="Stretch2" parent="Entities/Stretches" unique_id=73666858 instance=ExtResource("9_0tnpc")]
+position = Vector2(103, 0)
+
 [node name="Floor" type="Node2D" parent="." unique_id=1782745357]
 
 [node name="StaticBody" type="StaticBody2D" parent="Floor" unique_id=1962810391]
 
 [node name="Floor" type="CollisionShape2D" parent="Floor/StaticBody" unique_id=893057555]
-position = Vector2(-43, 55.5)
+position = Vector2(-43, 54)
 shape = SubResource("RectangleShape2D_37okk")
 
 [node name="Left" type="CollisionShape2D" parent="Floor/StaticBody" unique_id=880420585]
@@ -76,4 +85,5 @@ shape = SubResource("RectangleShape2D_fo3dt")
 [connection signal="guard_killed" from="Entities/Player" to="." method="_on_player_guard_killed"]
 [connection signal="stamina_use" from="Entities/Player" to="." method="_on_player_stamina_use"]
 [connection signal="panel_used" from="Entities/Panels/ControlPanel" to="Entities/Cameras/Camera" method="_on_control_panel_used"]
+[connection signal="panel_used" from="Entities/Panels/ControlPanel" to="Entities/Stretches/Stretch" method="_on_control_panel_panel_used"]
 [connection signal="vent_used" from="Entities/Vents/Vent_system" to="Entities/Player" method="_on_vent_system_vent_used"]

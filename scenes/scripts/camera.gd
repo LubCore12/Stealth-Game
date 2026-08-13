@@ -21,7 +21,8 @@ func _on_body_exited(body: Node2D) -> void:
 		attack_timer.stop()
 
 func _on_attack_timer_timeout() -> void:
-	camera_damage += 0.1
+	camera_damage *= 1.15
+	
 	player.add_awareness(camera_damage)
 	attack_timer.start()
 

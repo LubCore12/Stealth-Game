@@ -1,26 +1,27 @@
 extends CharacterBody2D
 
-@onready var aw_timer=$Timers/AwarenessTimer
-@onready var stam_timer=$Timers/StaminaTimer
+@onready var awareness_timer=$Timers/AwarenessTimer
+@onready var stamina_timer=$Timers/StaminaTimer
 
 var direction_x: float
+var current_stamina: float
 var current_awareness: float
 var current_speed: float
 var stamina_recovery := false
-var aw_recovery := false
+var is_running := false
+var awareness_recovery := false
 
 @export_group("Movement")
 @export var speed: float
 @export var jump_time_max: float
 @export var jump_strength: float
-@export var stamina: float
+@export var max_stamina: float
 @export var stamina_speed: float
 @export var stamina_usage: float
 @export var jump_stamina_usage: float
-@export var kill_aw_usage: float
 @export var stamina_recovery_speed: float
 @export var awareness_recovery_speed: float
-
+@export_range(0.0, 1.0, 0.01) var stamina_percent_to_kill: float
 
 @export_group("Player stats")
 @export var max_awareness: float
@@ -30,8 +31,12 @@ signal full_awareness
 signal stamina_use(amount: float)
 signal guard_killed
 
+func _ready() -> void:
+	current_stamina = max_stamina
+
 func _physics_process(delta: float) -> void:
 	get_input(delta)
+	stats_recovery(delta)
 	move()
 	
 func move() -> void:
@@ -42,47 +47,53 @@ func move() -> void:
 func jump() -> void: 
 	if is_on_floor():
 		velocity.y = -jump_strength
-		stamina -= jump_stamina_usage
+		current_stamina -= jump_stamina_usage
 		stamina_use.emit(jump_stamina_usage)
 
 func run(delta) -> void:
+	is_running = true
 	current_speed = stamina_speed
-	stamina -= stamina_usage * delta
+	current_stamina -= stamina_usage * delta
 	stamina_use.emit(stamina_usage * delta)
+	
+func stats_recovery(delta) -> void:
+	if not direction_x and stamina_timer.is_stopped():
+		stamina_timer.start()
+	if direction_x:
+		stamina_timer.stop()
+		stamina_recovery = false
+		
+	if stamina_recovery and current_stamina < 100:
+		current_stamina += stamina_recovery_speed * delta
+		stamina_use.emit(-stamina_recovery_speed * delta)
+		
+	if awareness_recovery:
+		add_awareness(-awareness_recovery_speed * delta)
 	
 func get_input(delta) -> void:
 	current_speed = speed
 	direction_x = Input.get_axis("left", "right")
 	
-	if not direction_x and stam_timer.is_stopped():
-		stam_timer.start()
-	if direction_x:
-		stam_timer.stop()
-		stamina_recovery = false
-		
-	if stamina_recovery and stamina < 100:
-		stamina += stamina_recovery_speed * delta
-		stamina_use.emit(-stamina_recovery_speed * delta)
-	if aw_recovery:
-		add_awareness(-awareness_recovery_speed * delta)
-	
-	if Input.is_action_just_pressed("jump") and stamina >= jump_stamina_usage:
-		stam_timer.stop()
+	if Input.is_action_just_pressed("jump") and current_stamina >= jump_stamina_usage:
+		stamina_timer.stop()
 		stamina_recovery = false
 		jump()
 	
-	if Input.is_action_pressed("run") and stamina > 0 and direction_x:
+	if Input.is_action_pressed("run") and current_stamina > 0 and direction_x:
 		run(delta)
 		stamina_recovery = false
-		stam_timer.stop()
+		stamina_timer.stop()
+	else:
+		is_running = false
 	
-	if Input.is_action_just_pressed("kill") and current_awareness < kill_aw_usage:
+	if Input.is_action_just_pressed("kill") and current_stamina >= max_stamina * stamina_percent_to_kill:
+		current_stamina = 0.0
 		guard_killed.emit()
 
 func add_awareness(damage: float):
 	if damage > 0:
-		aw_recovery = false
-		aw_timer.start()
+		awareness_recovery = false
+		awareness_timer.start()
 		
 	current_awareness += damage
 	current_awareness = clamp(current_awareness, 0, max_awareness)
@@ -90,12 +101,15 @@ func add_awareness(damage: float):
 	
 	if current_awareness >= max_awareness:
 		full_awareness.emit()
+		
+func running() -> bool:
+	return is_running
 
 func _on_stamina_timer_timeout() -> void:
 	stamina_recovery = true
 
 func _on_awareness_timer_timeout() -> void:
-	aw_recovery = true
+	awareness_recovery = true
 
 func _on_vent_system_vent_used() -> void:
 	if current_awareness < max_awareness / 5:
@@ -106,7 +120,6 @@ func _on_vent_system_vent_used() -> void:
 		elif collision_layer == 2:
 			collision_layer = 1
 			collision_mask = 1
-		
 
 func _on_wardrobe_used() -> void:
 	if current_awareness < max_awareness / 5:
