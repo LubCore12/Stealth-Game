@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cy1n5ta2fealk"]
+
+[ext_resource type="Script" uid="uid://bbqvrd83p3cy0" path="res://scenes/scripts/vent.gd" id="1_hhoh0"]
+[ext_resource type="Texture2D" uid="uid://hpg02fw2llt8" path="res://assets/vent.png" id="2_42pey"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp5ku"]
+size = Vector2(111.00004, 100.00003)
+
+[node name="vent" type="Node2D" unique_id=507566510]
+z_index = -1
+script = ExtResource("1_hhoh0")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1527751139]
+position = Vector2(1.9073486e-06, -1.0000019)
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=393907201]
+position = Vector2(-0.50000185, 1.9999987)
+scale = Vector2(0.9999996, 0.9999996)
+shape = SubResource("RectangleShape2D_cp5ku")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=517023603]
+position = Vector2(1.9073486e-06, -1.0000019)
+scale = Vector2(0.099999994, 0.099999994)
+texture = ExtResource("2_42pey")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -8,9 +8,13 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7ra8"]
 radius = 30.413813
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ss"]
+size = Vector2(118, 67)
+
 [node name="Guardian" type="CharacterBody2D" unique_id=1266923847]
 script = ExtResource("1_f7ra8")
 speed = 70.0
+walk_speed = 20.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1649361944]
 position = Vector2(0, -2)
@@ -31,6 +35,17 @@ polygon = PackedVector2Array(0, 0, 137, 81.999985, 169, -1.47744495e-05, 139, -8
 [node name="Shape" type="CollisionShape2D" parent="AttackArea" unique_id=1641039506]
 shape = SubResource("CircleShape2D_f7ra8")
 
+[node name="killArea" type="Area2D" parent="." unique_id=1835934005]
+
+[node name="Shape" type="CollisionShape2D" parent="killArea" unique_id=856183819]
+position = Vector2(-1, -1.5)
+shape = SubResource("RectangleShape2D_0b4ss")
+
+[node name="turn_Timer" type="Timer" parent="." unique_id=400258468]
+
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="killArea" to="." method="_on_kill_area_body_entered"]
+[connection signal="body_exited" from="killArea" to="." method="_on_kill_area_body_exited"]
+[connection signal="timeout" from="turn_Timer" to="." method="_on_turn_timer_timeout"]

@@ -1,3 +1,4 @@
 extends Node
 
-const GRAVITY_STRENGTH = 12
+const GRAVITY_STRENGTH = 50
+var is_awareness_full=false

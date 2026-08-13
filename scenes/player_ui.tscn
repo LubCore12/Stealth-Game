@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b7bm0jkth1ss3"]
 
 [ext_resource type="Script" uid="uid://bhib5xfaq5c5e" path="res://scenes/scripts/player_ui.gd" id="1_jkj6h"]
+[ext_resource type="Texture2D" uid="uid://dmr1lw1h0usxj" path="res://assets/warning-sign-icon-vremenno.png" id="2_sk4pr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37okk"]
 bg_color = Color(0.24164543, 0.24164551, 0.24164534, 1)
@@ -31,26 +32,32 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jkj6h")
 
-[node name="TopLeftBox" type="VBoxContainer" parent="." unique_id=1966474580]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.02
-anchor_top = 0.03
-anchor_right = 0.02
-anchor_bottom = 0.03
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=857994153]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(20, 20)
 
-[node name="AwarenessBar" type="ProgressBar" parent="TopLeftBox" unique_id=2010847233]
+[node name="TopLeftBox" type="VBoxContainer" parent="HBoxContainer" unique_id=1966474580]
+layout_mode = 2
+
+[node name="AwarenessBar" type="ProgressBar" parent="HBoxContainer/TopLeftBox" unique_id=2010847233]
 custom_minimum_size = Vector2(350, 40)
 layout_mode = 2
 size_flags_vertical = 2
 theme = SubResource("Theme_37okk")
 theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)
 
-[node name="StaminaBar" type="ProgressBar" parent="TopLeftBox" unique_id=5405069]
+[node name="StaminaBar" type="ProgressBar" parent="HBoxContainer/TopLeftBox" unique_id=5405069]
 custom_minimum_size = Vector2(350, 40)
 layout_mode = 2
 size_flags_vertical = 2
 theme = SubResource("Theme_jkj6h")
 theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)
+
+[node name="signal_danger" type="TextureRect" parent="HBoxContainer" unique_id=1813696358]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_sk4pr")
+expand_mode = 2
