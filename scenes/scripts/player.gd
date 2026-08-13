@@ -2,16 +2,17 @@ extends CharacterBody2D
 
 @onready var aw_timer=$Timers/AwarenessTimer
 @onready var stam_timer=$Timers/StaminaTimer
+
 var direction_x: float
 var current_awareness: float
 var current_speed: float
 var stamina_recovery := false
-var aw_recovery :=false
+var aw_recovery := false
 
 @export_group("Movement")
 @export var speed: float
 @export var jump_time_max: float
-@export var jump_speed: float
+@export var jump_strength: float
 @export var stamina: float
 @export var stamina_speed: float
 @export var stamina_usage: float
@@ -19,7 +20,7 @@ var aw_recovery :=false
 @export var kill_aw_usage: float
 @export var stamina_recovery_speed: float
 @export var awareness_recovery_speed: float
-var jump_time=0.0
+
 
 @export_group("Player stats")
 @export var max_awareness: float
@@ -38,14 +39,9 @@ func move() -> void:
 	velocity.y += Global.GRAVITY_STRENGTH
 	move_and_slide()
 
-func jump(delta) -> void: 
-	if jump_time<jump_time_max/100: 
-		velocity.y = -jump_speed 
-	elif jump_time<jump_time_max:
-		velocity.y -= jump_speed*(1-jump_time/jump_time_max) 
-	jump_time += delta 
-	if is_on_floor(): 
-		jump_time = 0.0 
+func jump() -> void: 
+	if is_on_floor():
+		velocity.y = -jump_strength
 		stamina -= jump_stamina_usage
 		stamina_use.emit(jump_stamina_usage)
 
@@ -64,32 +60,34 @@ func get_input(delta) -> void:
 		stam_timer.stop()
 		stamina_recovery = false
 		
-	if stamina_recovery and stamina<100:
+	if stamina_recovery and stamina < 100:
 		stamina += stamina_recovery_speed * delta
 		stamina_use.emit(-stamina_recovery_speed * delta)
 	if aw_recovery:
 		add_awareness(-awareness_recovery_speed * delta)
 	
-	if Input.is_action_pressed("jump") and stamina >= jump_stamina_usage:
+	if Input.is_action_just_pressed("jump") and stamina >= jump_stamina_usage:
 		stam_timer.stop()
 		stamina_recovery = false
-		jump(delta)
+		jump()
 	
 	if Input.is_action_pressed("run") and stamina > 0 and direction_x:
 		run(delta)
 		stamina_recovery = false
 		stam_timer.stop()
 	
-	if Input.is_action_just_pressed("kill") and current_awareness <kill_aw_usage:
+	if Input.is_action_just_pressed("kill") and current_awareness < kill_aw_usage:
 		guard_killed.emit()
 
 func add_awareness(damage: float):
-	if damage>0:
+	if damage > 0:
 		aw_recovery = false
 		aw_timer.start()
+		
 	current_awareness += damage
-	current_awareness=clamp(current_awareness,0,max_awareness)
+	current_awareness = clamp(current_awareness, 0, max_awareness)
 	get_awareness.emit(damage)
+	
 	if current_awareness >= max_awareness:
 		full_awareness.emit()
 
@@ -99,26 +97,25 @@ func _on_stamina_timer_timeout() -> void:
 func _on_awareness_timer_timeout() -> void:
 	aw_recovery = true
 
-func _on_vent_sistem_vent_used() -> void:
-	print('a')
-	if current_awareness<max_awareness/5:
-		if collision_layer==1:
-			global_position.y=-100
-			collision_layer=2
-			collision_mask=2
-		elif collision_layer==2:
-			collision_layer=1
-			collision_mask=1
+func _on_vent_system_vent_used() -> void:
+	if current_awareness < max_awareness / 5:
+		if collision_layer == 1:
+			global_position.y = -100
+			collision_layer = 2
+			collision_mask = 2
+		elif collision_layer == 2:
+			collision_layer = 1
+			collision_mask = 1
 		
 
 func _on_wardrobe_used() -> void:
-	if current_awareness<max_awareness/5:
-		if collision_layer==1:
-			z_index=-1
-			global_position.y=-30
-			collision_layer=4
-			collision_mask=4
-		elif collision_layer==4:
-			z_index=0
-			collision_layer=1
-			collision_mask=1
+	if current_awareness < max_awareness / 5:
+		if collision_layer == 1:
+			z_index = -1
+			global_position.y = -30
+			collision_layer = 4
+			collision_mask = 4
+		elif collision_layer == 4:
+			z_index = 0
+			collision_layer = 1
+			collision_mask = 1

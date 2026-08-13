@@ -16,7 +16,7 @@ extends Node2D
 var camera_scene=preload("res://scenes/camera.tscn")
 var guard_scene=preload("res://scenes/guardian.tscn")
 var panel_scene=preload("res://scenes/control_panel.tscn")
-var vent_sist_scene=preload("res://scenes/vent_sistem.tscn")
+var vent_sist_scene=preload("res://scenes/vent_system.tscn")
 var vent_scene=preload("res://scenes/vent.tscn")
 var wardrobe_scene=preload("res://scenes/wardrobe.tscn")
 

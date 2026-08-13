@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dshsuah6pnv1h"]
+
+[ext_resource type="Script" uid="uid://cwdwq57ht2waw" path="res://scenes/scripts/vent_system.gd" id="1_58yos"]
+[ext_resource type="PackedScene" uid="uid://cy1n5ta2fealk" path="res://scenes/vent.tscn" id="2_7fhrs"]
+
+[node name="VentSystem" type="Node2D" unique_id=1910657154]
+script = ExtResource("1_58yos")
+dist = 300.0
+flip = true
+
+[node name="VentHitboxes" type="StaticBody2D" parent="." unique_id=624032538]
+position = Vector2(1, -29)
+collision_layer = 2
+collision_mask = 2
+
+[node name="Polygon" type="CollisionPolygon2D" parent="VentHitboxes" unique_id=1300873369]
+position = Vector2(55, -3)
+polygon = PackedVector2Array(48, 32, 48, -32, -56, -32, -56, 24, -48, 24, -48, -24, 40, -24, 40, 24, -56, 24, -56, 32)
+
+[node name="VentBG" type="ColorRect" parent="." unique_id=1672228767]
+z_as_relative = false
+offset_left = 8.0
+offset_top = -56.0
+offset_right = 96.0
+offset_bottom = -8.0
+color = Color(0.16862746, 0.16862746, 0.16862746, 0.4509804)
+
+[node name="Vents" type="Node2D" parent="." unique_id=44246510]
+position = Vector2(54, -29)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Vent" parent="Vents" unique_id=507566510 instance=ExtResource("2_7fhrs")]
+
+[node name="Vent4" parent="Vents" unique_id=1871965166 instance=ExtResource("2_7fhrs")]
+
+[node name="Vent2" parent="Vents" unique_id=959724739 instance=ExtResource("2_7fhrs")]
+
+[node name="Vent3" parent="Vents" unique_id=497090880 instance=ExtResource("2_7fhrs")]
+
+[connection signal="vent_used" from="Vents/Vent" to="." method="_on_vent_used"]
+[connection signal="vent_used" from="Vents/Vent4" to="." method="_on_vent_used"]
+[connection signal="vent_used" from="Vents/Vent2" to="." method="_on_vent_used"]
+[connection signal="vent_used" from="Vents/Vent3" to="." method="_on_vent_used"]
