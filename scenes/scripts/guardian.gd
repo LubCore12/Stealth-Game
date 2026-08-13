@@ -7,7 +7,10 @@ var is_moving := false
 @onready var vision_shape = $VisionArea/Shape
 @onready var vision_area = $VisionArea
 @onready var attack_area = $AttackArea
+@onready var danger_area = $DangerArea
 @onready var kill_area = $KillArea
+@onready var noise_area = $NoiseArea
+@onready var raycast = $RayCast2D
 
 @export_group("Movement")
 @export var speed: float
@@ -15,6 +18,8 @@ var is_moving := false
 var time = randf()
 var current_speed = walk_speed
 var is_in_area = false
+
+signal defeat
 
 func setup(body: CharacterBody2D) -> void:
 	player = body
@@ -27,11 +32,11 @@ func setup(body: CharacterBody2D) -> void:
 
 func _physics_process(delta: float) -> void:
 	time += delta
-	if player.collision_layer!=1:
+	if player.collision_layer != 1:
 		is_moving = false
-		is_in_area=false
+		is_in_area = false
 	if is_moving:
-		current_speed=speed
+		current_speed = speed
 		direction_x = (player.global_position-global_position).normalized().x
 		player.add_awareness(40)
 	else:
@@ -40,20 +45,38 @@ func _physics_process(delta: float) -> void:
 		
 	if direction_x > 0:
 		var tween = create_tween()
+		tween.set_parallel(true)
 		tween.tween_property(vision_shape, "rotation_degrees", 180, 0.2)
+		tween.tween_property(raycast, "rotation_degrees", 270, 0.2)
 	else:
 		var tween = create_tween()
+		tween.parallel()
 		tween.tween_property(vision_shape, "rotation_degrees", 0, 0.2)
+		tween.tween_property(raycast, "rotation_degrees", 90, 0.2)
 		
 	velocity.x = direction_x * current_speed
 	velocity.y += Global.GRAVITY_STRENGTH
 	move_and_slide()
+	
+func dead():
+	if is_in_area:
+		var tween=create_tween()
+		tween.tween_property(self, "rotation_degrees", 90, 0.5)
+		self_modulate = Color(1.0, 0.5, 0.5, 1.0)
+		set_physics_process(false)
+		attack_area.disconnect("body_entered", _on_attack_area_body_entered)
+		vision_area.disconnect("body_exited", _on_vision_area_body_exited)
+		vision_area.disconnect("body_entered", _on_vision_area_body_entered)
+		player.disconnect("full_awareness", start_moving)
+		danger_area.disconnect("body_entered", _on_danger_area_body_entered)
+		danger_area.disconnect("body_exited", _on_danger_area_body_exited)
+		kill_area.disconnect("body_entered", _on_kill_area_body_entered)
 
 func start_moving() -> void:
 	is_moving = true
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
-	if player == body:
+	if player == body and not raycast.is_colliding():
 		is_moving = true
 
 func _on_vision_area_body_exited(body: Node2D) -> void:
@@ -63,25 +86,20 @@ func _on_vision_area_body_exited(body: Node2D) -> void:
 
 func _on_attack_area_body_entered(body: Node2D) -> void:
 	if player == body:
-		player.add_awareness(999)
-
-func dead():
-	if is_in_area:
-		var tween=create_tween()
-		tween.tween_property(self,"rotation_degrees",90,0.5)
-		self_modulate=Color(1.0, 0.5, 0.5, 1.0)
-		set_physics_process(false)
-		attack_area.disconnect("body_entered", _on_attack_area_body_entered)
-		vision_area.disconnect("body_exited", _on_vision_area_body_exited)
-		vision_area.disconnect("body_entered", _on_vision_area_body_entered)
-		player.disconnect("full_awareness", start_moving)
-		kill_area.disconnect("body_entered", _on_kill_area_body_entered)
-		kill_area.disconnect("body_exited", _on_kill_area_body_exited)
-
-func _on_kill_area_body_entered(body: Node2D) -> void:
+		player.add_awareness(100)
+		
+func _on_danger_area_body_entered(body: Node2D) -> void:
 	if body == player:
 		is_in_area = true
 
-func _on_kill_area_body_exited(body: Node2D) -> void:
-	if body==player:
+func _on_danger_area_body_exited(body: Node2D) -> void:
+	if body == player:
 		is_in_area = false
+
+func _on_noise_area_body_entered(body: Node2D) -> void:
+	if body == player and player.running():
+		player.add_awareness(100)
+
+func _on_kill_area_body_entered(body: Node2D) -> void:
+	if body == player:
+		defeat.emit()

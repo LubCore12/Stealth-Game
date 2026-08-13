@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b7me6j6m6emu5"]
+
+[ext_resource type="Script" uid="uid://ebqjcjb3eqjx" path="res://scenes/scripts/stretch.gd" id="1_vul14"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vul14"]
+b = Vector2(0, 24)
+
+[node name="Stretch" type="Area2D" unique_id=73666858]
+script = ExtResource("1_vul14")
+
+[node name="Shape" type="CollisionShape2D" parent="." unique_id=54540845]
+position = Vector2(0, -24)
+shape = SubResource("SegmentShape2D_vul14")
+debug_color = Color(0.9131081, 0, 0, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
