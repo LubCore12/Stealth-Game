@@ -8,13 +8,17 @@ size = Vector2(24, 24)
 
 [node name="Player" type="CharacterBody2D" unique_id=721760072]
 script = ExtResource("1_3vyb7")
-speed = 80.0
-jump_strength = 200.0
+speed = 100.0
+jump_time_max = 0.1
+jump_speed = 300.0
 stamina = 100.0
 stamina_speed = 200.0
 stamina_usage = 70.0
 jump_stamina_usage = 20.0
+kill_aw_usage = 25.0
 stamina_recovery_speed = 40.0
+awareness_recovery_speed = 20.0
+max_awareness = 100.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=149386670]
 position = Vector2(1.9073486e-06, 0)
@@ -32,4 +36,9 @@ zoom = Vector2(3, 3)
 [node name="StaminaTimer" type="Timer" parent="Timers" unique_id=19177812]
 one_shot = true
 
+[node name="AwarenessTimer" type="Timer" parent="Timers" unique_id=772180434]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="Timers/StaminaTimer" to="." method="_on_stamina_timer_timeout"]
+[connection signal="timeout" from="Timers/AwarenessTimer" to="." method="_on_awareness_timer_timeout"]

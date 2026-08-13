@@ -5,9 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dftrpkfy22rxb" path="res://scenes/player.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b7bm0jkth1ss3" path="res://scenes/player_ui.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://x6rgvi61u2g1" path="res://scenes/guardian.tscn" id="5_p57ef"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
-size = Vector2(793, 261)
+[ext_resource type="PackedScene" uid="uid://dv6rcyvp15cg2" path="res://scenes/floor.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://b3fhpndmt0ula" path="res://scenes/control_panel.tscn" id="6_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://dshsuah6pnv1h" path="res://scenes/vent_sistem.tscn" id="7_gee14"]
+[ext_resource type="PackedScene" uid="uid://f2ntqa64cybs" path="res://scenes/wardrobe.tscn" id="8_0tnpc"]
 
 [node name="Game" type="Node2D" unique_id=262754011]
 script = ExtResource("1_lbhrr")
@@ -19,25 +20,41 @@ script = ExtResource("1_lbhrr")
 [node name="Entities" type="Node2D" parent="." unique_id=2076095853]
 
 [node name="Player" parent="Entities" unique_id=721760072 instance=ExtResource("3_lbhrr")]
+position = Vector2(1, -11)
 
 [node name="Cameras" type="Node2D" parent="Entities" unique_id=359744557]
 
 [node name="Camera" parent="Entities/Cameras" unique_id=541546630 instance=ExtResource("2_iywne")]
-position = Vector2(262, -31)
+position = Vector2(289, -93)
 
 [node name="Guardians" type="Node2D" parent="Entities" unique_id=1719184381]
 
 [node name="Guardian" parent="Entities/Guardians" unique_id=1266923847 instance=ExtResource("5_p57ef")]
-position = Vector2(-260, 0)
+position = Vector2(-532, -23)
 
 [node name="Guardian2" parent="Entities/Guardians" unique_id=65013014 instance=ExtResource("5_p57ef")]
-position = Vector2(202, -26)
+position = Vector2(397, -31)
 
-[node name="Floor" type="StaticBody2D" parent="." unique_id=444745366]
+[node name="panels" type="Node2D" parent="Entities" unique_id=204564269]
 
-[node name="Shape" type="CollisionShape2D" parent="Floor" unique_id=668666329]
-position = Vector2(4, 204)
-shape = SubResource("RectangleShape2D_37okk")
+[node name="ControlPanel" parent="Entities/panels" unique_id=1910657154 instance=ExtResource("6_u5sy4")]
+position = Vector2(157, -42)
 
+[node name="vents" type="Node2D" parent="Entities" unique_id=194022053]
+
+[node name="vent_sistem" parent="Entities/vents" unique_id=502201872 instance=ExtResource("7_gee14")]
+position = Vector2(-400, -63)
+
+[node name="wardrobes" type="Node2D" parent="Entities" unique_id=17005827]
+
+[node name="wardrobe" parent="Entities/wardrobes" unique_id=1940177926 instance=ExtResource("8_0tnpc")]
+position = Vector2(-65, -29)
+
+[node name="floor" parent="." unique_id=1682839808 instance=ExtResource("6_p57ef")]
+
+[connection signal="full_awareness" from="Entities/Player" to="." method="_on_player_full_awareness"]
 [connection signal="get_awareness" from="Entities/Player" to="." method="_on_player_get_awareness"]
+[connection signal="guard_killed" from="Entities/Player" to="." method="_on_player_guard_killed"]
 [connection signal="stamina_use" from="Entities/Player" to="." method="_on_player_stamina_use"]
+[connection signal="panel_used" from="Entities/panels/ControlPanel" to="Entities/Cameras/Camera" method="_on_control_panel_used"]
+[connection signal="vent_used" from="Entities/vents/vent_sistem" to="Entities/Player" method="_on_vent_sistem_vent_used"]
