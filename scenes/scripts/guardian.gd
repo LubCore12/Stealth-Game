@@ -5,51 +5,49 @@ var direction_x: float
 var is_moving := false
 
 @onready var vision_shape = $VisionArea/Shape
-@onready var turn_timer=$turn_Timer
+@onready var vision_area = $VisionArea
+@onready var attack_area = $AttackArea
+@onready var kill_area = $KillArea
 
 @export_group("Movement")
 @export var speed: float
 @export var walk_speed: float
-var t=randf()
-var current_speed=walk_speed
-var is_in_area=false
+var time = randf()
+var current_speed = walk_speed
+var is_in_area = false
 
 func setup(body: CharacterBody2D) -> void:
 	player = body
 	player.connect("full_awareness", start_moving)
 	player.connect("stamina_use", func(val): if val>0:
-		var dir_x = abs(player.global_position-global_position)
-		if dir_x.x<200:
-			is_moving=true
-		)
+		var dir_x = abs(player.global_position - global_position)
+		if dir_x.x < 200:
+			is_moving = true
+	)
 
 func _physics_process(delta: float) -> void:
-	t+=delta
+	time += delta
 	if player.collision_layer!=1:
 		is_moving = false
 		is_in_area=false
 	if is_moving:
-		pass
-		#current_speed=speed
-		#direction_x = (player.global_position-global_position).normalized().x
-		#player.add_awareness(40)
+		current_speed=speed
+		direction_x = (player.global_position-global_position).normalized().x
+		player.add_awareness(40)
 	else:
-		current_speed=walk_speed
-		direction_x=sin(t*0.3)
+		current_speed = walk_speed
+		direction_x = sin(time * 0.3)
+		
 	if direction_x > 0:
 		var tween = create_tween()
 		tween.tween_property(vision_shape, "rotation_degrees", 180, 0.2)
 	else:
 		var tween = create_tween()
 		tween.tween_property(vision_shape, "rotation_degrees", 0, 0.2)
+		
 	velocity.x = direction_x * current_speed
-	
 	velocity.y += Global.GRAVITY_STRENGTH
 	move_and_slide()
-
-func turn():
-	var tween = create_tween()
-	tween.tween_property(vision_shape, "rotation_degrees", 0, 0.2)
 
 func start_moving() -> void:
 	is_moving = true
@@ -73,17 +71,17 @@ func dead():
 		tween.tween_property(self,"rotation_degrees",90,0.5)
 		self_modulate=Color(1.0, 0.5, 0.5, 1.0)
 		set_physics_process(false)
-		$AttackArea.disconnect("body_entered", _on_attack_area_body_entered)
-		$VisionArea.disconnect("body_exited", _on_vision_area_body_exited)
-		$VisionArea.disconnect("body_entered", _on_vision_area_body_entered)
+		attack_area.disconnect("body_entered", _on_attack_area_body_entered)
+		vision_area.disconnect("body_exited", _on_vision_area_body_exited)
+		vision_area.disconnect("body_entered", _on_vision_area_body_entered)
 		player.disconnect("full_awareness", start_moving)
-		$killArea.disconnect("body_entered", _on_kill_area_body_entered)
-		$killArea.disconnect("body_exited", _on_kill_area_body_exited)
+		kill_area.disconnect("body_entered", _on_kill_area_body_entered)
+		kill_area.disconnect("body_exited", _on_kill_area_body_exited)
 
 func _on_kill_area_body_entered(body: Node2D) -> void:
-	if body==player:
-		is_in_area=true
+	if body == player:
+		is_in_area = true
 
 func _on_kill_area_body_exited(body: Node2D) -> void:
 	if body==player:
-		is_in_area=false
+		is_in_area = false

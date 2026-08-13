@@ -13,7 +13,7 @@ func set_stamina(value: float) -> void:
 func add_awareness(value: float) -> void:
 	awareness_bar.value += value
 	awareness_bar.value=clamp(awareness_bar.value,0,100)
-	if awareness_bar.value<100:
+	if awareness_bar.value < 100:
 		signal_danger.hide()
 
 func discard_stamina(value: float) -> void:

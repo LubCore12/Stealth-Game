@@ -9,40 +9,40 @@ size = Vector2(89.00008, 63.00004)
 [node name="wardrobe" type="Node2D" unique_id=1940177926]
 script = ExtResource("1_wla1g")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1208188583]
+[node name="UseArea" type="Area2D" parent="." unique_id=1208188583]
 position = Vector2(1.9073486e-06, -1.0000019)
 scale = Vector2(0.99999994, 0.99999994)
 collision_layer = 5
 collision_mask = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=839861885]
+[node name="Shape" type="CollisionShape2D" parent="UseArea" unique_id=839861885]
 position = Vector2(0.49999425, 1.499997)
 scale = Vector2(0.99999917, 0.99999917)
 shape = SubResource("RectangleShape2D_psa3u")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=550896314]
+[node name="WardrobesHitboxes" type="StaticBody2D" parent="." unique_id=550896314]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=775246638]
-polygon = PackedVector2Array(-50, 27, -50, -42, 50, -42, 50, 30, -42, 31, -41, 25, 40, 25, 40, -29, -40, -29, -40, 24)
+[node name="Polygon" type="CollisionPolygon2D" parent="WardrobesHitboxes" unique_id=775246638]
+polygon = PackedVector2Array(-50, 33, -50, -42, 50, -42, 50, 33, -50, 33, -41, 25, 41, 25, 41, -30, -41, -30, -41, 25)
 
-[node name="sprites" type="Node2D" parent="." unique_id=859476893]
+[node name="Sprites" type="Node2D" parent="." unique_id=859476893]
 z_index = -1
 
-[node name="Sprite2D" type="Sprite2D" parent="sprites" unique_id=514095975]
+[node name="Sprite" type="Sprite2D" parent="Sprites" unique_id=514095975]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_31rhj")
 
-[node name="Sprite2D2" type="Sprite2D" parent="sprites" unique_id=2061155207]
+[node name="Sprite2" type="Sprite2D" parent="Sprites" unique_id=2061155207]
 position = Vector2(26.999998, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_31rhj")
 
-[node name="Sprite2D3" type="Sprite2D" parent="sprites" unique_id=1581030128]
+[node name="Sprite3" type="Sprite2D" parent="Sprites" unique_id=1581030128]
 position = Vector2(-26.999998, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_31rhj")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="UseArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="UseArea" to="." method="_on_area_2d_body_exited"]
