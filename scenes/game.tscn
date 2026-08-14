@@ -36,7 +36,7 @@ position = Vector2(289, -93)
 [node name="Guardians" type="Node2D" parent="Entities" unique_id=1719184381]
 
 [node name="Guardian" parent="Entities/Guardians" unique_id=1266923847 instance=ExtResource("5_p57ef")]
-position = Vector2(-532, -23)
+position = Vector2(-855, -42)
 
 [node name="Guardian2" parent="Entities/Guardians" unique_id=65013014 instance=ExtResource("5_p57ef")]
 position = Vector2(397, -31)
@@ -86,4 +86,3 @@ shape = SubResource("RectangleShape2D_fo3dt")
 [connection signal="stamina_use" from="Entities/Player" to="." method="_on_player_stamina_use"]
 [connection signal="panel_used" from="Entities/Panels/ControlPanel" to="Entities/Cameras/Camera" method="_on_control_panel_used"]
 [connection signal="panel_used" from="Entities/Panels/ControlPanel" to="Entities/Stretches/Stretch" method="_on_control_panel_panel_used"]
-[connection signal="vent_used" from="Entities/Vents/Vent_system" to="Entities/Player" method="_on_vent_system_vent_used"]

@@ -1,5 +1,7 @@
 extends Node2D
 
+var player: CharacterBody2D
+
 @onready var backround = $VentBG
 @onready var vents = $Vents
 @onready var polygon = $VentHitboxes/Polygon
@@ -8,13 +10,10 @@ extends Node2D
 @export var dist: float
 @export var flip: bool
 
-var player
-signal vent_used
-
 func setup(body):
 	player = body
-	for child in vents.get_children():
-		child.setup(player)
+	for vent in vents.get_children():
+		vent.setup(player)
 	expand()
 
 func expand():
@@ -42,15 +41,3 @@ func expand():
 		
 	polygon.polygon = pol
 	backround.size.x += length
-
-func _on_vent_used() -> void:
-	vent_used.emit()
-	
-	if player.collision_layer == 1:
-		backround.z_index = -1
-		for vent in vents.get_children():
-			vent.z_index = -1
-	else:
-		backround.z_index = 0
-		for vent in vents.get_children():
-			vent.z_index = 0
