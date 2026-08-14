@@ -10,7 +10,7 @@ var is_moving := false
 @onready var danger_area = $DangerArea
 @onready var kill_area = $KillArea
 @onready var noise_area = $NoiseArea
-@onready var raycast = $RayCast2D
+@onready var raycast = $Raycast
 
 @export_group("Movement")
 @export var speed: float

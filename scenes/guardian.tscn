@@ -57,7 +57,7 @@ shape = SubResource("RectangleShape2D_0b4ss")
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_fo3dt")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=331689156]
+[node name="Raycast" type="RayCast2D" parent="." unique_id=331689156]
 rotation = 1.5707964
 target_position = Vector2(8.611143e-06, 197)
 
