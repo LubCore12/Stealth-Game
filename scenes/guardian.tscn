@@ -30,41 +30,44 @@ texture = ExtResource("2_0b4ss")
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=675895807]
 shape = SubResource("RectangleShape2D_37okk")
 
-[node name="NoiseArea" type="Area2D" parent="." unique_id=793095293]
+[node name="areas" type="Node2D" parent="." unique_id=88237115]
 
-[node name="Shape" type="CollisionShape2D" parent="NoiseArea" unique_id=1337111628]
+[node name="NoiseArea" type="Area2D" parent="areas" unique_id=793095293]
+
+[node name="Shape" type="CollisionShape2D" parent="areas/NoiseArea" unique_id=1337111628]
 shape = SubResource("CircleShape2D_37okk")
 
-[node name="VisionArea" type="Area2D" parent="." unique_id=1003115298]
-rotation = 3.1415927
+[node name="VisionArea" type="Area2D" parent="areas" unique_id=1003115298]
+rotation = -3.1415925
 
-[node name="Shape" type="CollisionPolygon2D" parent="VisionArea" unique_id=1708249908]
+[node name="Shape" type="CollisionPolygon2D" parent="areas/VisionArea" unique_id=1708249908]
 polygon = PackedVector2Array(0, 0, 168, 79.999985, 192, -1.6785172e-05, 168, -80.000015)
 
-[node name="AttackArea" type="Area2D" parent="." unique_id=635631469]
+[node name="AttackArea" type="Area2D" parent="areas" unique_id=635631469]
 
-[node name="Shape" type="CollisionShape2D" parent="AttackArea" unique_id=1641039506]
+[node name="Shape" type="CollisionShape2D" parent="areas/AttackArea" unique_id=1641039506]
 shape = SubResource("CircleShape2D_f7ra8")
 
-[node name="DangerArea" type="Area2D" parent="." unique_id=1835934005]
+[node name="DangerArea" type="Area2D" parent="areas" unique_id=1835934005]
 
-[node name="Shape" type="CollisionShape2D" parent="DangerArea" unique_id=856183819]
+[node name="Shape" type="CollisionShape2D" parent="areas/DangerArea" unique_id=856183819]
 shape = SubResource("RectangleShape2D_0b4ss")
 
-[node name="KillArea" type="Area2D" parent="." unique_id=777271761]
+[node name="KillArea" type="Area2D" parent="areas" unique_id=777271761]
 
-[node name="Shape" type="CollisionShape2D" parent="KillArea" unique_id=1938230935]
+[node name="Shape" type="CollisionShape2D" parent="areas/KillArea" unique_id=1938230935]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_fo3dt")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=331689156]
+[node name="RayCast2D" type="RayCast2D" parent="areas" unique_id=331689156]
 rotation = 1.5707964
 target_position = Vector2(8.611143e-06, 197)
+collision_mask = 128
 
-[connection signal="body_entered" from="NoiseArea" to="." method="_on_noise_area_body_entered"]
-[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
-[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
-[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
-[connection signal="body_entered" from="DangerArea" to="." method="_on_danger_area_body_entered"]
-[connection signal="body_exited" from="DangerArea" to="." method="_on_danger_area_body_exited"]
-[connection signal="body_entered" from="KillArea" to="." method="_on_kill_area_body_entered"]
+[connection signal="body_entered" from="areas/NoiseArea" to="." method="_on_noise_area_body_entered"]
+[connection signal="body_entered" from="areas/VisionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="areas/VisionArea" to="." method="_on_vision_area_body_exited"]
+[connection signal="body_entered" from="areas/AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="areas/DangerArea" to="." method="_on_danger_area_body_entered"]
+[connection signal="body_exited" from="areas/DangerArea" to="." method="_on_danger_area_body_exited"]
+[connection signal="body_entered" from="areas/KillArea" to="." method="_on_kill_area_body_entered"]

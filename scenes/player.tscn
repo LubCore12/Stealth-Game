@@ -6,6 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37okk"]
 size = Vector2(24, 24)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_odv1g"]
+
 [node name="Player" type="CharacterBody2D" unique_id=721760072]
 script = ExtResource("1_3vyb7")
 speed = 100.0
@@ -39,6 +41,11 @@ one_shot = true
 [node name="AwarenessTimer" type="Timer" parent="Timers" unique_id=772180434]
 wait_time = 3.0
 one_shot = true
+
+[node name="SmokeArea" type="Area2D" parent="." unique_id=875347717]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SmokeArea" unique_id=1082160865]
+shape = SubResource("CircleShape2D_odv1g")
 
 [connection signal="timeout" from="Timers/StaminaTimer" to="." method="_on_stamina_timer_timeout"]
 [connection signal="timeout" from="Timers/AwarenessTimer" to="." method="_on_awareness_timer_timeout"]

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://p2xvxkd1b27f"]
+
+[ext_resource type="Script" uid="uid://bd124e43rlabj" path="res://scenes/scripts/stairs.gd" id="1_tpqne"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odv1g"]
+size = Vector2(74, 245)
+
+[node name="stairs" type="Node2D" unique_id=559834980]
+script = ExtResource("1_tpqne")
+is_right = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=741827162]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=320328390]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_odv1g")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

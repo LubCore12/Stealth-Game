@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://drmdlsulf30hl"]
+
+[ext_resource type="FontFile" uid="uid://kl0uigv1tkn3" path="res://fonts/Righteous-Regular.ttf" id="1_5bdnp"]
+[ext_resource type="Script" uid="uid://c2cwf2qulnfnm" path="res://scenes/scripts/defeat.gd" id="1_ycbao"]
+
+[node name="defeat" type="Control" unique_id=1652396089]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ycbao")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=887990048]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -19.0
+offset_right = 1166.0
+offset_bottom = 661.0
+color = Color(0, 0, 0, 0.6392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=836279314]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -365.0
+offset_top = -192.5
+offset_right = 365.0
+offset_bottom = 192.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1421437553]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_5bdnp")
+theme_override_font_sizes/font_size = 130
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="restart" type="Button" parent="VBoxContainer" unique_id=2143583889]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "restart"
+
+[node name="exit_the_menu" type="Button" parent="VBoxContainer" unique_id=1451693463]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "exit the menu"
+
+[node name="quit" type="Button" parent="VBoxContainer" unique_id=1150859852]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "quit"
+
+[connection signal="pressed" from="VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/exit_the_menu" to="." method="_on_exit_the_menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_quit_pressed"]

@@ -10,4 +10,5 @@ func _on_body_entered(body: Node2D) -> void:
 		player.add_awareness(50)
 
 func _on_control_panel_panel_used() -> void:
-	disconnect("body_entered", _on_body_entered)
+	if is_connected("body_entered", _on_body_entered):
+		disconnect("body_entered", _on_body_entered)

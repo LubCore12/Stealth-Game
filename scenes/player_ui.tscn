@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://b7bm0jkth1ss3"]
 
 [ext_resource type="Script" uid="uid://bhib5xfaq5c5e" path="res://scenes/scripts/player_ui.gd" id="1_jkj6h"]
+[ext_resource type="Texture2D" uid="uid://cw0k2rmswqeff" path="res://assets/pause_vremenno.png" id="2_8isll"]
 [ext_resource type="Texture2D" uid="uid://dmr1lw1h0usxj" path="res://assets/warning-sign-icon-vremenno.png" id="2_sk4pr"]
+[ext_resource type="Texture2D" uid="uid://bw4srjs8spo6p" path="res://assets/heart_vremenno.png" id="3_48xfa"]
+[ext_resource type="PackedScene" uid="uid://dorw1iti7120w" path="res://scenes/pause.tscn" id="5_7ctsh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37okk"]
 bg_color = Color(0.24164543, 0.24164551, 0.24164534, 1)
@@ -34,10 +37,17 @@ script = ExtResource("1_jkj6h")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=857994153]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 424.0
+offset_bottom = 104.0
 offset_transform_position = Vector2(20, 20)
+
+[node name="PauseButton" type="TextureButton" parent="HBoxContainer" unique_id=2044415101]
+custom_maximum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("2_8isll")
+stretch_mode = 0
 
 [node name="TopLeftBox" type="VBoxContainer" parent="HBoxContainer" unique_id=1966474580]
 layout_mode = 2
@@ -61,3 +71,45 @@ visible = false
 layout_mode = 2
 texture = ExtResource("2_sk4pr")
 expand_mode = 2
+
+[node name="bombs" type="HBoxContainer" parent="." unique_id=1596538904]
+layout_mode = 0
+offset_left = 994.0
+offset_right = 1152.0
+offset_bottom = 50.0
+grow_horizontal = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(-20, 20)
+
+[node name="TextureRect" type="TextureRect" parent="bombs" unique_id=1792703714]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+texture = ExtResource("3_48xfa")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="bombs" unique_id=632678098]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("3_48xfa")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="bombs" unique_id=514478013]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("3_48xfa")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="pause" parent="." unique_id=1652396089 instance=ExtResource("5_7ctsh")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]

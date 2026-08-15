@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dk7j5fmy4yatl"]
+
+[ext_resource type="PackedScene" uid="uid://cufci385o641h" path="res://scenes/game.tscn" id="1_eus5j"]
+[ext_resource type="PackedScene" uid="uid://biy7st87oubxk" path="res://scenes/camera.tscn" id="2_7d3si"]
+[ext_resource type="PackedScene" uid="uid://x6rgvi61u2g1" path="res://scenes/guardian.tscn" id="3_jum3j"]
+[ext_resource type="PackedScene" uid="uid://b3fhpndmt0ula" path="res://scenes/control_panel.tscn" id="4_c4pne"]
+[ext_resource type="PackedScene" uid="uid://dshsuah6pnv1h" path="res://scenes/vent_system.tscn" id="5_c4pne"]
+[ext_resource type="PackedScene" uid="uid://f2ntqa64cybs" path="res://scenes/wardrobe.tscn" id="5_tfamw"]
+[ext_resource type="PackedScene" uid="uid://b7me6j6m6emu5" path="res://scenes/stretch.tscn" id="6_dm5o4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odv1g"]
+size = Vector2(20, 125)
+
+[node name="Level_0" unique_id=262754011 instance=ExtResource("1_eus5j")]
+
+[node name="Player" parent="Entities" parent_id_path=PackedInt32Array(2076095853) index="0" unique_id=721760072]
+position = Vector2(-533, -19)
+
+[node name="Camera" parent="Entities/Cameras" parent_id_path=PackedInt32Array(359744557) index="0" unique_id=541546630 instance=ExtResource("2_7d3si")]
+position = Vector2(-59, -93)
+
+[node name="Guardian" parent="Entities/Guardians" parent_id_path=PackedInt32Array(1719184381) index="0" unique_id=1266923847 instance=ExtResource("3_jum3j")]
+position = Vector2(648, -13)
+
+[node name="ControlPanel" parent="Entities/Panels" parent_id_path=PackedInt32Array(204564269) index="0" unique_id=1910657154 instance=ExtResource("4_c4pne")]
+position = Vector2(-182, -39)
+
+[node name="VentSystem" parent="Entities/Vents" parent_id_path=PackedInt32Array(194022053) index="0" unique_id=1705893871 instance=ExtResource("5_c4pne")]
+position = Vector2(287, -108)
+vents_count = 3
+
+[node name="wardrobe" parent="Entities/Wardrobes" parent_id_path=PackedInt32Array(17005827) index="0" unique_id=1940177926 instance=ExtResource("5_tfamw")]
+position = Vector2(466, -32)
+
+[node name="Stretch" parent="Entities/Stretches" parent_id_path=PackedInt32Array(163829972) index="0" unique_id=73666858 instance=ExtResource("6_dm5o4")]
+position = Vector2(-382, 2)
+
+[node name="wall" type="StaticBody2D" parent="walls" parent_id_path=PackedInt32Array(185971932) index="0" unique_id=316525274]
+
+[node name="coll" type="CollisionShape2D" parent="walls/wall" index="0" unique_id=27056450]
+position = Vector2(-564, -57.5)
+shape = SubResource("RectangleShape2D_odv1g")
+
+[node name="wall2" type="StaticBody2D" parent="walls" parent_id_path=PackedInt32Array(185971932) index="1" unique_id=1916298875]
+
+[node name="coll" type="CollisionShape2D" parent="walls/wall2" index="0" unique_id=985084107]
+position = Vector2(1023, -58)
+shape = SubResource("RectangleShape2D_odv1g")
+
+[node name="stairs" parent="walls" parent_id_path=PackedInt32Array(185971932) index="3" unique_id=559834980]
+position = Vector2(979, -63)
+
+[connection signal="panel_used" from="Entities/Panels/ControlPanel" to="Entities/Cameras/Camera" method="_on_control_panel_used"]
+[connection signal="vent_used" from="Entities/Vents/VentSystem" to="Entities/Player" method="_on_vent_system_vent_used"]

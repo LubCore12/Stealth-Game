@@ -7,12 +7,18 @@ extends Node2D
 @export_group("Vent stats")
 @export var dist: float
 @export var flip: bool
+@export var vents_count: int
 
+var vent_scene=preload("res://scenes/vent.tscn")
 var player
-signal vent_used
+signal vent_used(pos)
 
 func setup(body):
 	player = body
+	for i in range(vents_count-1):
+		var vent=vent_scene.instantiate()
+		vents.add_child(vent)
+		vent.vent_used.connect(_on_vent_used)
 	for child in vents.get_children():
 		child.setup(player)
 	expand()
@@ -43,8 +49,8 @@ func expand():
 	polygon.polygon = pol
 	backround.size.x += length
 
-func _on_vent_used() -> void:
-	vent_used.emit()
+func _on_vent_used(pos) -> void:
+	vent_used.emit(pos)
 	
 	if player.collision_layer == 1:
 		backround.z_index = -1
