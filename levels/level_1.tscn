@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://dmiymfop1rsna"]
+
+[ext_resource type="PackedScene" uid="uid://cufci385o641h" path="res://scenes/game.tscn" id="1_btoec"]
+[ext_resource type="PackedScene" uid="uid://biy7st87oubxk" path="res://scenes/camera.tscn" id="2_gwceb"]
+[ext_resource type="PackedScene" uid="uid://x6rgvi61u2g1" path="res://scenes/guardian.tscn" id="3_l53as"]
+[ext_resource type="PackedScene" uid="uid://b3fhpndmt0ula" path="res://scenes/control_panel.tscn" id="4_3sk1a"]
+[ext_resource type="PackedScene" uid="uid://dshsuah6pnv1h" path="res://scenes/vent_system.tscn" id="5_08mmt"]
+[ext_resource type="PackedScene" uid="uid://b7me6j6m6emu5" path="res://scenes/stretch.tscn" id="6_5ot28"]
+[ext_resource type="PackedScene" uid="uid://f2ntqa64cybs" path="res://scenes/wardrobe.tscn" id="6_gwceb"]
+[ext_resource type="PackedScene" uid="uid://p2xvxkd1b27f" path="res://scenes/stairs.tscn" id="8_l53as"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tpqne"]
+size = Vector2(32, 135)
+
+[node name="Level1" unique_id=262754011 instance=ExtResource("1_btoec")]
+
+[node name="Player" parent="Entities" parent_id_path=PackedInt32Array(2076095853) index="0" unique_id=721760072]
+position = Vector2(-530, -23)
+
+[node name="Camera" parent="Entities/Cameras" parent_id_path=PackedInt32Array(359744557) index="0" unique_id=541546630 instance=ExtResource("2_gwceb")]
+position = Vector2(-261, -99)
+
+[node name="Guardian" parent="Entities/Guardians" parent_id_path=PackedInt32Array(1719184381) index="0" unique_id=1266923847 instance=ExtResource("3_l53as")]
+position = Vector2(178, -20)
+
+[node name="ControlPanel" parent="Entities/Panels" parent_id_path=PackedInt32Array(204564269) index="0" unique_id=1910657154 instance=ExtResource("4_3sk1a")]
+position = Vector2(-383, -40)
+
+[node name="VentSystem" parent="Entities/Vents" parent_id_path=PackedInt32Array(194022053) index="0" unique_id=519071295 instance=ExtResource("5_08mmt")]
+position = Vector2(-119, -83)
+vents_count = 3
+
+[node name="wardrobe" parent="Entities/Wardrobes" parent_id_path=PackedInt32Array(17005827) index="0" unique_id=1940177926 instance=ExtResource("6_gwceb")]
+position = Vector2(372, -30)
+
+[node name="Stretch" parent="Entities/Stretches" parent_id_path=PackedInt32Array(163829972) index="0" unique_id=73666858 instance=ExtResource("6_5ot28")]
+position = Vector2(-122, 1)
+
+[node name="Stretch4" parent="Entities/Stretches" parent_id_path=PackedInt32Array(163829972) index="1" unique_id=992200581 instance=ExtResource("6_5ot28")]
+position = Vector2(-41, 1)
+
+[node name="Stretch2" parent="Entities/Stretches" parent_id_path=PackedInt32Array(163829972) index="2" unique_id=1367686185 instance=ExtResource("6_5ot28")]
+position = Vector2(-63, 1)
+
+[node name="Stretch3" parent="Entities/Stretches" parent_id_path=PackedInt32Array(163829972) index="3" unique_id=457387207 instance=ExtResource("6_5ot28")]
+position = Vector2(-91, 0)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="walls" parent_id_path=PackedInt32Array(185971932) index="1" unique_id=425633030]
+position = Vector2(-648, -67)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D2" index="0" unique_id=836790951]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_tpqne")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="walls" parent_id_path=PackedInt32Array(185971932) index="2" unique_id=915481363]
+position = Vector2(618, -64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D3" index="0" unique_id=2122023085]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_tpqne")
+
+[node name="stairs" parent="walls" parent_id_path=PackedInt32Array(185971932) index="3" unique_id=559834980]
+position = Vector2(-595, -84)
+is_right = false
+
+[node name="stairs2" parent="walls" parent_id_path=PackedInt32Array(185971932) index="4" unique_id=120803726 instance=ExtResource("8_l53as")]
+position = Vector2(563, -90)

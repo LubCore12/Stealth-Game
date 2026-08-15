@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var awareness_timer=$Timers/AwarenessTimer
 @onready var stamina_timer=$Timers/StaminaTimer
+@onready var smoke_area=$SmokeArea
 
 var direction_x: float
 var current_stamina: float
@@ -73,7 +74,6 @@ func stats_recovery(delta) -> void:
 func get_input(delta) -> void:
 	current_speed = speed
 	direction_x = Input.get_axis("left", "right")
-	
 	if Input.is_action_just_pressed("jump") and current_stamina >= jump_stamina_usage:
 		stamina_timer.stop()
 		stamina_recovery = false
@@ -86,7 +86,8 @@ func get_input(delta) -> void:
 	else:
 		is_running = false
 	
-	if Input.is_action_just_pressed("kill") and current_stamina >= max_stamina * stamina_percent_to_kill:
+	if Input.is_action_just_pressed("kill") and current_stamina >= max_stamina * stamina_percent_to_kill\
+	and current_awareness<=max_awareness/4:
 		current_stamina = 0.0
 		guard_killed.emit()
 		
@@ -124,7 +125,7 @@ func add_awareness(damage: float):
 	
 	if current_awareness >= max_awareness:
 		full_awareness.emit()
-		
+
 func running() -> bool:
 	return is_running
 
@@ -133,3 +134,34 @@ func _on_stamina_timer_timeout() -> void:
 
 func _on_awareness_timer_timeout() -> void:
 	awareness_recovery = true
+
+func _on_vent_system_vent_used(pos) -> void:
+	if current_awareness < max_awareness / 2:
+		if collision_layer == 1:
+			global_position=pos
+			collision_layer = 2
+			collision_mask = 2
+		elif collision_layer == 2:
+			collision_layer = 1
+			collision_mask = 1
+
+func _on_wardrobe_used(pos) -> void:
+	if current_awareness < max_awareness / 2:
+		if collision_layer == 1:
+			z_index = -1
+			global_position=pos
+			collision_layer = 4
+			collision_mask = 4
+		elif collision_layer == 4:
+			z_index = 0
+			collision_layer = 1
+			collision_mask = 1
+
+func fart():
+	create_tween().tween_property(smoke_area,"scale",Vector2(7,7),0.5)
+	smoke_area.top_level=true
+	smoke_area.global_position=global_position
+	await get_tree().create_timer(2.5,false).timeout
+	smoke_area.top_level=false
+	smoke_area.global_position=global_position
+	smoke_area.scale=Vector2(1,1)

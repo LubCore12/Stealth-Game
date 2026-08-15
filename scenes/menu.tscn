@@ -27,16 +27,41 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_vjb58")
 
-[node name="PlayButton" type="Button" parent="." unique_id=1533190506]
-custom_minimum_size = Vector2(300, 80)
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=534285542]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.13
-anchor_top = 0.55
-anchor_right = 0.13
-anchor_bottom = 0.55
+anchor_left = 0.091145836
+anchor_top = 0.6898148
+anchor_right = 0.091145836
+anchor_bottom = 0.6898148
+offset_top = -124.0
 offset_right = 300.0
-offset_bottom = 80.0
+offset_bottom = 124.0
+grow_vertical = 2
+offset_transform_position = Vector2(71, 37)
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1533190506]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
 theme = SubResource("Theme_6v87y")
 text = "PLAY"
 autowrap_trim_flags = 0
+
+[node name="SupportButton" type="Button" parent="VBoxContainer" unique_id=993758340]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme = SubResource("Theme_6v87y")
+text = "SUPPORT US"
+autowrap_trim_flags = 0
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1444012260]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme = SubResource("Theme_6v87y")
+text = "QUIT"
+autowrap_trim_flags = 0
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="start_game"]
+[connection signal="pressed" from="VBoxContainer/SupportButton" to="." method="_on_support_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

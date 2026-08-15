@@ -6,7 +6,6 @@
 [node name="VentSystem" type="Node2D" unique_id=1910657154]
 script = ExtResource("1_58yos")
 dist = 300.0
-flip = true
 
 [node name="VentHitboxes" type="StaticBody2D" parent="." unique_id=624032538]
 position = Vector2(1, -29)
@@ -31,11 +30,4 @@ position = Vector2(54, -29)
 [node name="Vent" parent="Vents" unique_id=507566510 instance=ExtResource("2_7fhrs")]
 position = Vector2(-1.762, -1.653)
 
-[node name="Vent4" parent="Vents" unique_id=1871965166 instance=ExtResource("2_7fhrs")]
-position = Vector2(-1.762, -1.653)
-
-[node name="Vent2" parent="Vents" unique_id=959724739 instance=ExtResource("2_7fhrs")]
-position = Vector2(-1.762, -1.653)
-
-[node name="Vent3" parent="Vents" unique_id=497090880 instance=ExtResource("2_7fhrs")]
-position = Vector2(-1.762, -1.653)
+[connection signal="vent_used" from="Vents/Vent" to="." method="_on_vent_used"]

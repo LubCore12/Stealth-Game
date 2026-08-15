@@ -4,10 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dftrpkfy22rxb" path="res://scenes/player.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://drmdlsulf30hl" path="res://scenes/defeat.tscn" id="3_vtaks"]
 [ext_resource type="PackedScene" uid="uid://b7bm0jkth1ss3" path="res://scenes/player_ui.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://p2xvxkd1b27f" path="res://scenes/stairs.tscn" id="5_p57ef"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_odv1g"]
-size = Vector2(2524, 75)
+[ext_resource type="PackedScene" uid="uid://clndrqywusqbu" path="res://scenes/floor.tscn" id="5_p57ef"]
 
 [node name="Level" type="Node2D" unique_id=262754011]
 script = ExtResource("1_lbhrr")
@@ -38,15 +35,9 @@ position = Vector2(27, -27)
 
 [node name="smoke_bombs" type="Node2D" parent="Entities" unique_id=1264427446]
 
-[node name="walls" type="Node2D" parent="." unique_id=185971932]
+[node name="walls" type="Node2D" parent="." unique_id=314820967]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="walls" unique_id=568290077]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D" unique_id=1258691722]
-position = Vector2(330, 36.5)
-shape = SubResource("RectangleShape2D_odv1g")
-
-[node name="stairs" parent="walls" unique_id=559834980 instance=ExtResource("5_p57ef")]
+[node name="floor" parent="." unique_id=1824789541 instance=ExtResource("5_p57ef")]
 
 [connection signal="full_awareness" from="Entities/Player" to="." method="_on_player_full_awareness"]
 [connection signal="get_awareness" from="Entities/Player" to="." method="_on_player_get_awareness"]
