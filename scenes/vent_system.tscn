@@ -17,7 +17,7 @@ position = Vector2(55, -3)
 polygon = PackedVector2Array(48, 32, 48, -32, -56, -32, -56, 24, -48, 24, -48, -24, 40, -24, 40, 24, -56, 24, -56, 32)
 
 [node name="VentBG" type="ColorRect" parent="." unique_id=1672228767]
-z_as_relative = false
+z_index = -1
 offset_left = 8.0
 offset_top = -56.0
 offset_right = 96.0
@@ -26,9 +26,8 @@ color = Color(0.16862746, 0.16862746, 0.16862746, 0.4509804)
 
 [node name="Vents" type="Node2D" parent="." unique_id=44246510]
 position = Vector2(54, -29)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="Vent" parent="Vents" unique_id=507566510 instance=ExtResource("2_7fhrs")]
+position = Vector2(-1.762, -1.653)
 
 [connection signal="vent_used" from="Vents/Vent" to="." method="_on_vent_used"]

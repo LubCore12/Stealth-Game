@@ -14,7 +14,6 @@ func get_input() -> void:
 
 func setup(body):
 	player = body
-	wardrobe_used.connect(player._on_wardrobe_used)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body and body == player:

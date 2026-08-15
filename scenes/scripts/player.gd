@@ -81,8 +81,8 @@ func get_input(delta) -> void:
 	
 	if Input.is_action_pressed("run") and current_stamina > 0 and direction_x:
 		run(delta)
-		stamina_recovery = false
 		stamina_timer.stop()
+		stamina_recovery = false
 	else:
 		is_running = false
 	
@@ -90,6 +90,29 @@ func get_input(delta) -> void:
 	and current_awareness<=max_awareness/4:
 		current_stamina = 0.0
 		guard_killed.emit()
+		
+	if Input.is_action_just_pressed("action"):
+		for wardrobe in get_tree().get_nodes_in_group("Wardrobes"):
+			if wardrobe.is_in_area:
+				layer_transition(wardrobe, 4)
+						
+		for vent in get_tree().get_nodes_in_group("Vents"):
+			if vent.is_in_area:
+				layer_transition(vent, 2)
+				
+func layer_transition(object, target_layer: int) -> void:
+	if current_awareness < max_awareness / 5:
+		if collision_layer == 1:
+			z_index = -1
+			change_layer(target_layer, object.global_position)
+		elif collision_layer == target_layer:
+			z_index = 0
+			change_layer(1, object.global_position)
+
+func change_layer(layer: int, position: Vector2) -> void:
+	global_position = position
+	collision_layer = layer
+	collision_mask = layer
 
 func add_awareness(damage: float):
 	if damage > 0:

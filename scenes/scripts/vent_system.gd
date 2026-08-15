@@ -1,5 +1,7 @@
 extends Node2D
 
+var player: CharacterBody2D
+
 @onready var backround = $VentBG
 @onready var vents = $Vents
 @onready var polygon = $VentHitboxes/Polygon

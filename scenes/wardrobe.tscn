@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_psa3u"]
 size = Vector2(89.00008, 63.00004)
 
-[node name="wardrobe" type="Node2D" unique_id=1940177926]
+[node name="Wardrobe" type="Node2D" unique_id=1940177926 groups=["Wardrobes"]]
 script = ExtResource("1_wla1g")
 
 [node name="UseArea" type="Area2D" parent="." unique_id=1208188583]

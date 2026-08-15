@@ -14,10 +14,10 @@ func get_input() -> void:
 func setup(body):
 	player = body
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body and body == player:
-		is_in_area=true
+		is_in_area = true
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
+func _on_body_exited(body: Node2D) -> void:
 	if body and body == player:
 		is_in_area = false
